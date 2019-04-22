@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MtFlaskApp</title>
+        <style media="screen">
+            #custom-button{
+            padding: 10px;
+            color: white;
+            background-color: #009578;
+            border: 1px solid #000;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+
+            #custom-button:hover{
+            background-color: hsl(172, 91%, 50%);
+            }
+            #custom-text {
+            margin-left: 10px;
+            font-family: sans-serif;
+            color: #aaa;
+            }
+            #sub-btn{
+                padding: 10px;
+                color: white;
+                background-color: #aaa;
+                border: 1px solid black;
+                border-radius: 5px;
+                cursor: pointer;
+
+            }
+            #sub-btn:hover{
+            background-color: darkgray;
+            }
+
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        {% include 'includes/_navbar.html' %}
+        <div class="container">
+        <div class="jumbotron text-center">
+    <h1>Welcome to My Flask App</h1>
+    <p class="lead"> This Application is built on python flask framework</p>
+</div>
+    
+        <form action="/prediction/image" method="POST" enctype="multipart/form-data">
+            <!-- <input type="file" id="file" hidden = "hidden" />
+            <button type="button" id="custom-button">Choose a file</button>
+            <span id="custom-text">no file chosen yet</span> -->
+            <label class="lead" >Upload your content image: </label>
+            <input type="file" name="file" id="file"/>
+            <button name="submit-btn" id="sub-btn" type="submit">Submit</button>
+
+        </form>
+        
+        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>
+
