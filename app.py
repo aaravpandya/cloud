@@ -5,8 +5,6 @@ from PIL import Image
 from tempfile import NamedTemporaryFile
 from shutil import copyfileobj
 from os import remove
-from azure.storage.blob import BlockBlobService, PublicAccess
-from azure.storage.queue import QueueService, QueueMessage, QueueMessageFormat
 import base64
 import json
 import urllib.request
