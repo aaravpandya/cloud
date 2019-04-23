@@ -167,8 +167,6 @@ class YOLO(object):
             # Convert RGB to BGR 
             img = open_cv_image[:, :, ::-1].copy() 
             croppedimage = img[ntop:nbottom, nleft:nright]
-            cv2.imshow('image', croppedimage)
-            cv2.waitKey(0)
             img = cv2.cvtColor(croppedimage, cv2.COLOR_BGR2RGB)
 
 

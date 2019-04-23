@@ -66,7 +66,7 @@ def image_prediction():
 #                 block_blob_service.create_blob_from_path("detectedimages",d["guid"], "1.jpg")
 #                 queue_service.delete_message("jsonqueue",message.id,message.pop_receipt) 
 if __name__ == '__main__':    
-    app.run(debug=True)
+    # app.run(debug=True)
     
-    # app.run(host='0.0.0.0')    
+    app.run(host='0.0.0.0')    
 # app.run(debug=True)
