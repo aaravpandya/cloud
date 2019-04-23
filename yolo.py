@@ -18,7 +18,6 @@ from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
-from webcolors import rgb_to_name
 from itertools import chain
 import json
 from json import codecs
