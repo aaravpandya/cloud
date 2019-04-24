@@ -9,7 +9,16 @@ import base64
 import json
 import urllib.request
 from io import BytesIO
+from azure.storage.blob import BlockBlobService, PublicAccess
+import uuid
 app = Flask(__name__)
+
+block_blob_service = BlockBlobService(account_name='aaravdiag', account_key='y5SPT4Q2eJkw/BFcvHESS1UIqtQuC1sRR3WPfWZ7B6WEbjSBYwACpCKpb+VJNwWaYVt4dYCb471B1sy1j9XZfQ==')
+
+yolo.YOLO._defaults['model_path']='model_data/yolo-openimages.h5'
+yolo.YOLO._defaults['classes_path']='model_data/openimages.names'
+yolo.YOLO._defaults['anchors_path']='model_data/yolo_anchors.txt'
+model = yolo.YOLO()
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -20,11 +29,6 @@ def about():
     return render_template('about.html')
 
 
-
-yolo.YOLO._defaults['model_path']='model_data/yolo-openimages.h5'
-yolo.YOLO._defaults['classes_path']='model_data/openimages.names'
-yolo.YOLO._defaults['anchors_path']='model_data/yolo_anchors.txt'
-model = yolo.YOLO()
 
 @app.route('/prediction/image', methods=['POST'])
 def image_prediction():
@@ -48,13 +52,14 @@ def predict():
     else:
         image,objects = model.detect_image(image)
         image.save("output.jpg")
+        guid = uuid.uuid1()
+        filename = str(guid) + "output.jpg"
+        block_blob_service.create_blob_from_path("images",filename, "output.jpg")
         d = {}
-        img = BytesIO()
-        image.save(img,"jpeg")
-        imgarr = img.getvalue()
-        d["image"] = imgarr
+        d["image"] = block_blob_service.make_blob_url("images",filename)
         d["objects"] = objects
-        return jsonify(d)
+        r = json.dumps(d)
+        return r
 if __name__ == '__main__':    
     # app.run(debug=True)
     app.run(host='0.0.0.0')
