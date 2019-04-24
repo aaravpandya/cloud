@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, send_file, render_template, flash, redirect, url_for
+from flask import Flask, request, Response, send_file, render_template, flash, redirect, url_for, jsonify
 import yolo
 import io
 from PIL import Image
@@ -8,6 +8,7 @@ from os import remove
 import base64
 import json
 import urllib.request
+from io import BytesIO
 app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
@@ -33,10 +34,27 @@ def image_prediction():
     except:
         return str("Image Error")
     else:
-        image = model.detect_image(image)
+        image,objects = model.detect_image(image)
         image.save("output.jpg")
         return send_file("output.jpg",mimetype='image/jpeg')
    
+@app.route('/predict',methods=['POST'])
+def predict():
+    file = request.files['file']
+    try:
+        image = Image.open(file)
+    except:
+        return str("Image Error")
+    else:
+        image,objects = model.detect_image(image)
+        image.save("output.jpg")
+        d = {}
+        img = BytesIO()
+        image.save(img,"jpeg")
+        imgarr = img.getvalue()
+        d["image"] = imgarr
+        d["objects"] = objects
+        return jsonify(d)
 if __name__ == '__main__':    
     # app.run(debug=True)
     app.run(host='0.0.0.0')

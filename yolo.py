@@ -136,6 +136,7 @@ class YOLO(object):
         thickness = (image.size[0] + image.size[1]) // 300
         pixel_values = list(image.getdata())
         pixel_values = np.array(pixel_values).reshape((image.size[0],image.size[1],3))
+        objects = {}
         # ctr = 0
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
@@ -210,8 +211,9 @@ class YOLO(object):
             # print(clt.cluster_centers_[0])
             print(m)
             print(d[str(m)])
-            label = label + d[str(m)]
-
+            objects[label] = d[str(m)]
+            label = label + " " + d[str(m)]
+            
             # x = {}
             # print("printing bottom and right")
             # print(bottom,right)
@@ -249,7 +251,7 @@ class YOLO(object):
 
         end = timer()
         print(end - start)
-        return image
+        return image, objects
 
     def close_session(self):
         self.sess.close()
