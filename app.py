@@ -13,7 +13,7 @@ from azure.storage.blob import BlockBlobService, PublicAccess
 import uuid
 app = Flask(__name__)
 
-block_blob_service = BlockBlobService(account_name='aaravdiag', account_key='y5SPT4Q2eJkw/BFcvHESS1UIqtQuC1sRR3WPfWZ7B6WEbjSBYwACpCKpb+VJNwWaYVt4dYCb471B1sy1j9XZfQ==')
+block_blob_service = BlockBlobService(account_name='aarav', account_key='ldK9vUHttYzmWp26CRmIJENDqt6/MTYuq3LyDwyna2BODpKvWHr95NeQSAIH6YhcPjeBMiYNJxz4RqrUyEEk7Q==')
 
 yolo.YOLO._defaults['model_path']='model_data/yolo-openimages.h5'
 yolo.YOLO._defaults['classes_path']='model_data/openimages.names'
