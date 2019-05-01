@@ -40,6 +40,7 @@ def image_prediction():
     else:
         image,objects = model.detect_image(image)
         image.save("output.jpg")
+        block_blob_service.create_blob_from_path("images",filename, "output.jpg")
         return send_file("output.jpg",mimetype='image/jpeg')
    
 @app.route('/predict',methods=['POST'])
